@@ -1,0 +1,15 @@
+<block>
+  <name>FICH Parser</name>
+  <key>ysf2_fich_parser_b</key>
+  <category>[YSF2]</category>
+  <import>import ysf2</import>
+  <make>ysf2.fich_parser_b()</make>
+  <sink>
+    <name>in</name>
+    <type>byte</type>
+  </sink>
+  <source>
+    <name>header_data</name>
+    <type>message</type>
+  </source>
+</block>
