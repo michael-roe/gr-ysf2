@@ -75,13 +75,14 @@ namespace gr {
       unsigned int data_type;
 
       if (noutput_items < 32)
+      {
+	fprintf(stderr, "not enough bytes for FICH\n");
         return 0;
+      }
 
-      fprintf(stderr, "FICH received\n");
 
       get_tags_in_range(tags, 0, nitems_read(0), nitems_read(0)+32);
 
-      fprintf(stderr, "FICH: %ld tags\n", tags.size());
       error_found = 0;
       for (i=0; i<tags.size(); i++)
       {
@@ -111,19 +112,23 @@ namespace gr {
         frame_number = (in[10] << 2) | (in[11] << 1) | in[12];
         frame_total = (in[13] << 2) | (in[14] << 1) | in[15];
         data_type = (in[22] << 1) | in[23];
-        fprintf(stderr, "FI = %x\n", frame_type);
-        fprintf(stderr, "CS = %x\n", callsign_information);
-        fprintf(stderr, "CM = %x\n", call_mode);
-        fprintf(stderr, "BN = %x\n", block_number);
-        fprintf(stderr, "BT = %x\n", block_total);
-        fprintf(stderr, "FN = %x\n", frame_number);
-        fprintf(stderr, "FT = %x\n", frame_total);
-        fprintf(stderr, "DT = %x\n", data_type);
 
 	dict = pmt::make_dict();
-	dict = pmt::dict_add(dict, pmt::intern("packet_len"), pmt::from_long(32));
+	dict = pmt::dict_add(dict, pmt::intern("payload_len"), pmt::from_long(360));
+	dict = pmt::dict_add(dict, pmt::intern("frame_type"),
+	  pmt::from_long(frame_type));
 	dict = pmt::dict_add(dict, pmt::intern("frame_number"),
 	  pmt::from_long(frame_number));
+	dict = pmt::dict_add(dict, pmt::intern("data_type"),
+	  pmt::from_long(data_type));
+        for (i=0; i<tags.size(); i++)
+        {
+          if (pmt::equal(tags[i].key, pmt::intern("rx_time")))
+          {
+	    dict = pmt::dict_add(dict, pmt::intern("header_time"),
+	      tags[i].value);
+          }
+	}
 	message_port_pub(d_port, dict);
       }
 
