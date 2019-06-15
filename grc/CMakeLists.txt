@@ -18,5 +18,6 @@
 # Boston, MA 02110-1301, USA.
 
 install(FILES
-    ysf2_fich_parser_b.xml DESTINATION share/gnuradio/grc/blocks
+    ysf2_fich_parser_b.xml
+    ysf2_vech_decode_bb.xml DESTINATION share/gnuradio/grc/blocks
 )
