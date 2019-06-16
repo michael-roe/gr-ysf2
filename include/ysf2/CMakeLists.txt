@@ -23,5 +23,6 @@
 install(FILES
     api.h
     fich_parser_b.h
-    vech_decode_bb.h DESTINATION include/ysf2
+    vech_decode_bb.h
+    vech_decode_fb.h DESTINATION include/ysf2
 )
