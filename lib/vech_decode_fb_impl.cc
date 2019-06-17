@@ -78,6 +78,10 @@ namespace gr {
       float sum;
       float error;
       float bit;
+      std::vector<tag_t> tags;
+      unsigned long long block_num;
+      unsigned int block_offset;
+
 
       blocks = noutput_items/49;
       for (i=0; i<blocks; i++)
@@ -112,6 +116,18 @@ namespace gr {
 	 add_item_tag(0, d_offset + 49*i, pmt::string_to_symbol("rms_error"),
             pmt::from_float(error));
 
+      }
+
+      get_tags_in_range(tags, 0, nitems_read(0), nitems_read(0)+blocks*104);
+      for (i=0; i<tags.size(); i++)
+      {
+        block_num = tags[i].offset/104;
+        block_offset = tags[i].offset - 104*block_num;
+        if (block_offset >= 83)
+          block_offset = block_offset - 83 + 27;
+        else
+          block_offset = block_offset/3;
+        add_item_tag(0, block_num*49 + block_offset, tags[i].key, tags[i].value);
       }
 
       d_offset += blocks*49;
