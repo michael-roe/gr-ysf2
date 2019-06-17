@@ -11,6 +11,7 @@
 #include "ysf2/fich_parser_b.h"
 #include "ysf2/vech_decode_bb.h"
 #include "ysf2/vech_decode_fb.h"
+#include "ysf2/vech_encode_bb.h"
 %}
 
 
@@ -20,3 +21,5 @@ GR_SWIG_BLOCK_MAGIC2(ysf2, fich_parser_b);
 GR_SWIG_BLOCK_MAGIC2(ysf2, vech_decode_bb);
 %include "ysf2/vech_decode_fb.h"
 GR_SWIG_BLOCK_MAGIC2(ysf2, vech_decode_fb);
+%include "ysf2/vech_encode_bb.h"
+GR_SWIG_BLOCK_MAGIC2(ysf2, vech_encode_bb);

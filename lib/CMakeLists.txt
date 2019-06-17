@@ -29,6 +29,7 @@ list(APPEND ysf2_sources
     fich_parser_b_impl.cc
     vech_decode_bb_impl.cc
     vech_decode_fb_impl.cc
+    vech_encode_bb_impl.cc
 )
 
 set(ysf2_sources "${ysf2_sources}" PARENT_SCOPE)
