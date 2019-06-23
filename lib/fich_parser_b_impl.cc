@@ -128,6 +128,16 @@ namespace gr {
 	    dict = pmt::dict_add(dict, pmt::intern("header_time"),
 	      tags[i].value);
           }
+	  else if (pmt::equal(tags[i].key, pmt::intern("skip")))
+	  {
+	    dict = pmt::dict_add(dict, tags[i].key,
+              tags[i].value);
+          }
+	  else if (pmt::equal(tags[i].key, pmt::intern("correlation")))
+          {
+	    dict = pmt::dict_add(dict, tags[i].key,
+              tags[i].value);
+          }
 	}
 	message_port_pub(d_port, dict);
       }
