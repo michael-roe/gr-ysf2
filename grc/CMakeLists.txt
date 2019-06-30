@@ -21,5 +21,6 @@ install(FILES
     ysf2_fich_parser_b.xml
     ysf2_vech_decode_bb.xml
     ysf2_vech_decode_fb.xml
-    ysf2_vech_encode_bb.xml DESTINATION share/gnuradio/grc/blocks
+    ysf2_vech_encode_bb.xml
+    ysf2_fich_source_b.xml DESTINATION share/gnuradio/grc/blocks
 )

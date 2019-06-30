@@ -45,3 +45,4 @@ GR_ADD_TEST(qa_fich_parser_b ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa
 GR_ADD_TEST(qa_vech_decode_bb ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_vech_decode_bb.py)
 GR_ADD_TEST(qa_vech_decode_fb ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_vech_decode_fb.py)
 GR_ADD_TEST(qa_vech_encode_bb ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_vech_encode_bb.py)
+GR_ADD_TEST(qa_fich_source_b ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_fich_source_b.py)
