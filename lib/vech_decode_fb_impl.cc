@@ -48,6 +48,7 @@ namespace gr {
       set_output_multiple(49);
       set_tag_propagation_policy(TPP_DONT);
       d_offset = 0;
+      d_threshold = 5;
     }
 
     /*
@@ -81,12 +82,14 @@ namespace gr {
       std::vector<tag_t> tags;
       unsigned long long block_num;
       unsigned int block_offset;
+      int corrected_errors;
 
 
       blocks = noutput_items/49;
       for (i=0; i<blocks; i++)
       {
 	error = 0.0;
+	corrected_errors = 0;
         for (j=0.0; j<27;j++)
         {
           sum = 0;
@@ -107,13 +110,30 @@ namespace gr {
 	  for (k=0; k<3; k++)
           {
 	    error += (in[104*i + 3*j + k] - bit)*(in[104*i + 3*j + k] - bit);
+	    if (signbit(bit) != signbit(in[104*i + 3*j + k]))
+	    {
+	      corrected_errors++;
+	    }
 	  }
 	}
 	error = sqrtf(error/27.0);
 
 	for (j=0; j<22; j++)
           out[49*i + 27 + j] = in[104*i + 81 + j] > 0.0 ? 1 : 0;
-	 add_item_tag(0, d_offset + 49*i, pmt::string_to_symbol("rms_error"),
+
+	if (corrected_errors > 0)
+          add_item_tag(0, d_offset + 49*i, pmt::string_to_symbol("corrected_errors"),
+	    pmt::from_long(corrected_errors));
+
+	if (corrected_errors > d_threshold)
+        {
+          add_item_tag(0, d_offset + 49*i, pmt::string_to_symbol("deleted_frame"),
+            pmt::PMT_T);
+	  for (j=0; j<49; j++)
+	    out[49*i + j] = 0;
+	}
+
+	add_item_tag(0, d_offset + 49*i, pmt::string_to_symbol("rms_error"),
             pmt::from_float(error));
 
       }
