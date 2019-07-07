@@ -31,6 +31,7 @@ namespace gr {
      private:
       unsigned long long d_offset;
       int d_threshold;
+      int d_dropped;
 
      public:
       vech_decode_fb_impl();

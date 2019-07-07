@@ -49,6 +49,7 @@ namespace gr {
       set_tag_propagation_policy(TPP_DONT);
       d_offset = 0;
       d_threshold = 5;
+      d_dropped = 0;
     }
 
     /*
@@ -127,8 +128,11 @@ namespace gr {
 
 	if (corrected_errors > d_threshold)
         {
+          d_dropped++;
           add_item_tag(0, d_offset + 49*i, pmt::string_to_symbol("deleted_frame"),
             pmt::PMT_T);
+	  add_item_tag(0, d_offset + 49*i, pmt::string_to_symbol("vech_dropped"),
+	    pmt::from_long(d_dropped));
 	  for (j=0; j<49; j++)
 	    out[49*i + j] = 0;
 	}
