@@ -14,6 +14,7 @@
 #include "ysf2/vech_encode_bb.h"
 #include "ysf2/fich_source_b.h"
 #include "ysf2/dch_parser_b.h"
+#include "ysf2/vocoder_dummy_bf.h"
 %}
 
 
@@ -29,3 +30,5 @@ GR_SWIG_BLOCK_MAGIC2(ysf2, vech_encode_bb);
 GR_SWIG_BLOCK_MAGIC2(ysf2, fich_source_b);
 %include "ysf2/dch_parser_b.h"
 GR_SWIG_BLOCK_MAGIC2(ysf2, dch_parser_b);
+%include "ysf2/vocoder_dummy_bf.h"
+GR_SWIG_BLOCK_MAGIC2(ysf2, vocoder_dummy_bf);
