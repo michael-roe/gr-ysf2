@@ -133,9 +133,14 @@ namespace gr {
 	    dict = pmt::dict_add(dict, tags[i].key,
               tags[i].value);
           }
-	  else if (pmt::equal(tags[i].key, pmt::intern("correlation")))
+	  else if (pmt::equal(tags[i].key, pmt::intern("low_correlation")))
           {
 	    dict = pmt::dict_add(dict, tags[i].key,
+              tags[i].value);
+          }
+	  else if  (pmt::equal(tags[i].key, pmt::intern("burst")))
+	  {
+            dict = pmt::dict_add(dict, tags[i].key,
               tags[i].value);
           }
 	}
