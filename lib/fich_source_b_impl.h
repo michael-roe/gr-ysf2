@@ -30,6 +30,7 @@ namespace gr {
     {
      private:
       int d_frame_number;
+      unsigned char d_squelch;
 
      public:
       fich_source_b_impl();

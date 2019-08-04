@@ -73,6 +73,7 @@ namespace gr {
       unsigned int frame_number;
       unsigned int frame_total;
       unsigned int data_type;
+      unsigned int squelch;
 
       if (noutput_items < 32)
       {
@@ -112,6 +113,8 @@ namespace gr {
         frame_number = (in[10] << 2) | (in[11] << 1) | in[12];
         frame_total = (in[13] << 2) | (in[14] << 1) | in[15];
         data_type = (in[22] << 1) | in[23];
+	squelch = (in[25] << 6) | (in[26] << 5) |(in[27] << 4) |(in[28] << 3) |
+	  (in[29] << 2) | (in[30] << 1) | in[31];
 
 	dict = pmt::make_dict();
 	dict = pmt::dict_add(dict, pmt::intern("payload_len"), pmt::from_long(360));
@@ -121,6 +124,11 @@ namespace gr {
 	  pmt::from_long(frame_number));
 	dict = pmt::dict_add(dict, pmt::intern("data_type"),
 	  pmt::from_long(data_type));
+	if (squelch != 0)
+	{
+	  dict = pmt::dict_add(dict, pmt::intern("squelch"),
+	    pmt::from_long(squelch));
+        }
         for (i=0; i<tags.size(); i++)
         {
           if (pmt::equal(tags[i].key, pmt::intern("rx_time")))

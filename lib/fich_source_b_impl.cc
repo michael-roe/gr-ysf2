@@ -45,6 +45,7 @@ namespace gr {
     {
       set_output_multiple(32);
       d_frame_number = 0;
+      d_squelch = 0;
     }
 
     /*
@@ -107,13 +108,13 @@ namespace gr {
 	/* Squelch Enabled */
 	out[32*i + 24] = 0;
 	/* Squelch */
-	out[32*i + 25] = 0;
-	out[32*i + 26] = 0;
-	out[32*i + 27] = 0;
-	out[32*i + 28] = 0;
-	out[32*i + 29] = 0;
-	out[32*i + 30] = 0;
-	out[32*i + 31] = 0;
+	out[32*i + 25] = (d_squelch >> 6) & 0x1;
+	out[32*i + 26] = (d_squelch >> 5) & 0x1;
+	out[32*i + 27] = (d_squelch >> 4) & 0x1;
+	out[32*i + 28] = (d_squelch >> 3) & 0x1;
+	out[32*i + 29] = (d_squelch >> 2) & 0x1;
+	out[32*i + 30] = (d_squelch >> 1) & 0x1;
+	out[32*i + 31] = d_squelch & 0x1;
 
 	d_frame_number = (d_frame_number + 1) & 0x7;
       }
