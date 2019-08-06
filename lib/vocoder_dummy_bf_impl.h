@@ -29,6 +29,7 @@ namespace gr {
     class vocoder_dummy_bf_impl : public vocoder_dummy_bf
     {
      private:
+      pmt::pmt_t d_deleted_frame_key;
       // Nothing to declare in this block.
 
      public:
