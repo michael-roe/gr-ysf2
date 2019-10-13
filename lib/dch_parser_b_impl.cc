@@ -91,12 +91,6 @@ namespace gr {
 	}
 	if ((crc_error == 0) && (frame_number == 1))
         {
-	  fprintf(stderr, "dch_parser: ");
-	  for (j=0; j<8; j++)
-	  {
-	    fprintf(stderr, "%c", in[8*i + j]);
-	  }
-	  fprintf(stderr, "\n");
 	  memcpy(callsign, in + 8*i, 8);
 	  len = 8;
 	  while ((len > 0) && (callsign[len - 1] == ' '))
