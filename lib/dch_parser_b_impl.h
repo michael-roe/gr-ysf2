@@ -29,7 +29,8 @@ namespace gr {
     class dch_parser_b_impl : public dch_parser_b
     {
      private:
-      pmt::pmt_t d_port;
+      pmt::pmt_t d_port_callsign;
+      pmt::pmt_t d_port_hwid;
 
      public:
       dch_parser_b_impl();

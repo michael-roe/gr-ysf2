@@ -44,8 +44,10 @@ namespace gr {
               gr::io_signature::make(0, 0, 0))
     {
       set_output_multiple(10);
-      d_port = pmt::mp("callsign_data");
-      message_port_register_out(d_port);
+      d_port_callsign = pmt::mp("callsign_data");
+      message_port_register_out(d_port_callsign);
+      d_port_hwid =  pmt::mp("hwid");
+      message_port_register_out(d_port_hwid);
     }
 
     /*
@@ -66,14 +68,15 @@ namespace gr {
       int crc_error;
       int frame_number;
       std::vector<tag_t> tags;
-      char callsign[9];
+      char callsign[11];
+      char hwid[11];
       int len;
 
       // Do <+signal processing+>
-      for (i=0; i<noutput_items/8; i++)
+      for (i=0; i<noutput_items/10; i++)
       {
-	get_tags_in_range(tags, 0, nitems_read(0) + 8*i,
-	  nitems_read(0) + 8*i + 8);
+	get_tags_in_range(tags, 0, nitems_read(0) + 10*i,
+	  nitems_read(0) + 10*i + 10);
 
 	crc_error = 0;
 	frame_number = -1;
@@ -89,16 +92,29 @@ namespace gr {
             frame_number = pmt::to_long(tags[j].value);
 	  }
 	}
-	if ((crc_error == 0) && (frame_number == 1))
-        {
-	  memcpy(callsign, in + 8*i, 8);
-	  len = 8;
-	  while ((len > 0) && (callsign[len - 1] == ' '))
+	if (crc_error == 0)
+	{
+          if (frame_number == 0)
 	  {
-            len--;
+	    for (j=0; j<5; j++)
+	    {
+	      sprintf(hwid + 2*j, "%02x", in[10*i + j + 5]);
+	    }
+	    message_port_pub(d_port_hwid, pmt::cons(pmt::intern("hwid"),
+              pmt::intern(hwid)));
 	  }
-	  callsign[len] = '\0';
-	  message_port_pub(d_port, pmt::intern(callsign));
+          else if (frame_number == 1)
+          {
+	    memcpy(callsign, in + 10*i, 10);
+	    len = 10;
+	    while ((len > 0) && (callsign[len - 1] == ' '))
+	    {
+              len--;
+	    }
+	    callsign[len] = '\0';
+	    message_port_pub(d_port_callsign, pmt::cons(pmt::intern("callsign"),
+	      pmt::intern(callsign)));
+	  }
 	}
       }
 

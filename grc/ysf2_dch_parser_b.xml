@@ -12,4 +12,8 @@
     <name>callsign_data</name>
     <type>message</type>
   </source>
+  <source>
+    <name>hwid</name>
+    <type>message</type>
+  </source>
 </block>
