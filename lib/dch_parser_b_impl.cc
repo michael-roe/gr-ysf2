@@ -94,16 +94,7 @@ namespace gr {
 	}
 	if (crc_error == 0)
 	{
-          if (frame_number == 0)
-	  {
-	    for (j=0; j<5; j++)
-	    {
-	      sprintf(hwid + 2*j, "%02x", in[10*i + j + 5]);
-	    }
-	    message_port_pub(d_port_hwid, pmt::cons(pmt::intern("hwid"),
-              pmt::intern(hwid)));
-	  }
-          else if (frame_number == 1)
+          if (frame_number == 1)
           {
 	    memcpy(callsign, in + 10*i, 10);
 	    len = 10;
@@ -115,6 +106,15 @@ namespace gr {
 	    message_port_pub(d_port_callsign, pmt::cons(pmt::intern("callsign"),
 	      pmt::intern(callsign)));
 	  }
+	  else if (frame_number == 5)
+	  {
+            for (j=0; j<5; j++)
+            {
+              sprintf(hwid + 2*j, "%02x", in[10*i + j + 5]);
+            }
+            message_port_pub(d_port_hwid, pmt::cons(pmt::intern("hwid"),
+              pmt::intern(hwid)));
+          }
 	}
       }
 
