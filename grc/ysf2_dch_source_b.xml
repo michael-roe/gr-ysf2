@@ -1,0 +1,11 @@
+<block>
+  <name>DCH Source</name>
+  <key>ysf2_dch_source_b</key>
+  <category>[YSF2]</category>
+  <import>import ysf2</import>
+  <make>ysf2.dch_source_b()</make>
+  <source>
+    <name>out</name>
+    <type>byte</type>
+  </source>
+</block>

@@ -1,0 +1,15 @@
+<block>
+  <name>DCH Errors</name>
+  <key>ysf2_dch_errors_bb</key>
+  <category>[YSF2]</category>
+  <import>import ysf2</import>
+  <make>ysf2.dch_errors_bb()</make>
+  <sink>
+    <name>in</name>
+    <type>byte</type>
+  </sink>
+  <source>
+    <name>out</name>
+    <type>byte</type>
+  </source>
+</block>
