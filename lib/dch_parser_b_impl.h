@@ -31,6 +31,7 @@ namespace gr {
      private:
       pmt::pmt_t d_port_callsign;
       pmt::pmt_t d_port_hwid;
+      pmt::pmt_t d_port_location;
 
      public:
       dch_parser_b_impl();

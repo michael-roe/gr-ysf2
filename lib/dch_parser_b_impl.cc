@@ -48,6 +48,8 @@ namespace gr {
       message_port_register_out(d_port_callsign);
       d_port_hwid =  pmt::mp("hwid");
       message_port_register_out(d_port_hwid);
+      d_port_location =  pmt::mp("location");
+      message_port_register_out(d_port_location);
     }
 
     /*
@@ -70,9 +72,9 @@ namespace gr {
       std::vector<tag_t> tags;
       char callsign[11];
       char hwid[11];
+      char location[21];
       int len;
 
-      // Do <+signal processing+>
       for (i=0; i<noutput_items/10; i++)
       {
 	get_tags_in_range(tags, 0, nitems_read(0) + 10*i,
@@ -114,6 +116,15 @@ namespace gr {
             }
             message_port_pub(d_port_hwid, pmt::cons(pmt::intern("hwid"),
               pmt::intern(hwid)));
+          }
+	  else if (frame_number == 6)
+	  {
+	    for (j=0; j<10; j++)
+            {
+              sprintf(location + 2*j, "%02x", in[10*i + j]);
+            }
+            message_port_pub(d_port_location, pmt::cons(pmt::intern("location"),
+              pmt::intern(location)));
           }
 	}
       }
