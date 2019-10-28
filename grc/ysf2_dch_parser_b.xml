@@ -16,4 +16,8 @@
     <name>hwid</name>
     <type>message</type>
   </source>
+   <source>
+    <name>location</name>
+    <type>message</type>
+  </source>
 </block>
