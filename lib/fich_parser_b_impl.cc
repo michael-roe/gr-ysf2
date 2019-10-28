@@ -146,7 +146,7 @@ namespace gr {
 	    dict = pmt::dict_add(dict, tags[i].key,
               tags[i].value);
           }
-	  else if  (pmt::equal(tags[i].key, pmt::intern("burst")))
+	  else if  (pmt::equal(tags[i].key, pmt::intern("burst_length")))
 	  {
             dict = pmt::dict_add(dict, tags[i].key,
               tags[i].value);
