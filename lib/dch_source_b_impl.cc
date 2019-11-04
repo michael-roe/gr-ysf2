@@ -29,23 +29,24 @@ namespace gr {
   namespace ysf2 {
 
     dch_source_b::sptr
-    dch_source_b::make()
+    dch_source_b::make(const std::string &callsign)
     {
       return gnuradio::get_initial_sptr
-        (new dch_source_b_impl());
+        (new dch_source_b_impl(callsign));
     }
 
     /*
      * The private constructor
      */
-    dch_source_b_impl::dch_source_b_impl()
+    dch_source_b_impl::dch_source_b_impl(const std::string &callsign)
       : gr::sync_block("dch_source_b",
               gr::io_signature::make(0, 0, sizeof(0)),
               gr::io_signature::make(1, 1, sizeof(char)))
     {
       int i;
-      const char *callsign = "M0GXM";
+      const char *call_str = callsign.c_str();
       const char hwid[] = {0x46, 0x30, 0x64, 0x4f, 0x31};
+      /* This is the same hwid as the radio I used for interop testing */
 
       set_output_multiple(10);
       d_frame_number = 0;
@@ -56,14 +57,17 @@ namespace gr {
       memcpy(d_msg + 5, hwid, 5);
 
       /* Source callsign */
-      strncpy(d_msg + 10, callsign, 10);
-      for (i = strlen(callsign); i<10; i++)
+      strncpy(d_msg + 10, call_str, 10);
+      for (i = strlen(call_str); i<10; i++)
       {
         d_msg[10 + i] = ' ';
       }
 
       /* Transmitter id */
       memcpy(d_msg + 55, hwid, 5);
+    
+      /* Location */
+      memset(d_msg + 60, 0, 20);
     }
 
     /*

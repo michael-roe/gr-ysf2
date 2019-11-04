@@ -33,7 +33,7 @@ namespace gr {
       int d_frame_number;
 
      public:
-      dch_source_b_impl();
+      dch_source_b_impl(const std::string &callsign);
       ~dch_source_b_impl();
 
       // Where all the action really happens
