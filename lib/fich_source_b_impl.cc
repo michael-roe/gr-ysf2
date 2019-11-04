@@ -46,6 +46,8 @@ namespace gr {
       set_output_multiple(32);
       d_frame_number = 0;
       d_squelch = 0;
+      d_narrowband = 1;
+      d_data_type = 2;
     }
 
     /*
@@ -95,7 +97,7 @@ namespace gr {
 	/* Reserved */
 	out[32*i + 16] = 0;
 	/* Frequency Deviation */
-	out[32*i + 17] = 1;
+	out[32*i + 17] = d_narrowband & 0x1;;
 	/* Message Path */
 	out[32*i + 18] = 0;
 	out[32*i + 19] = 0;
@@ -103,10 +105,17 @@ namespace gr {
 	/* VoIP Path */
 	out[32*i + 21] = 0;
 	/* Data Type */
-	out[32*i + 22] = 1;
-	out[32*i + 23] = 0;
+	out[32*i + 22] = (d_data_type >> 1) & 0x1;
+	out[32*i + 23] = d_data_type & 0x1;;
 	/* Squelch Enabled */
-	out[32*i + 24] = 0;
+	if (d_squelch == 0)
+        {
+	  out[32*i + 24] = 0;
+	}
+	else
+	{
+	  out[32*i + 24] = 1;
+	}
 	/* Squelch */
 	out[32*i + 25] = (d_squelch >> 6) & 0x1;
 	out[32*i + 26] = (d_squelch >> 5) & 0x1;

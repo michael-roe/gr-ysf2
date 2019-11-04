@@ -30,6 +30,8 @@ namespace gr {
     {
      private:
       int d_frame_number;
+      int d_narrowband;
+      int d_data_type;
       unsigned char d_squelch;
 
      public:
