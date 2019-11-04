@@ -46,7 +46,7 @@ namespace gr {
        * class. ysf2::fich_source_b::make is the public interface for
        * creating new instances.
        */
-      static sptr make();
+      static sptr make(int data_type, int narrowband, int squelch);
     };
 
   } // namespace ysf2

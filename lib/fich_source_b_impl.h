@@ -35,7 +35,7 @@ namespace gr {
       unsigned char d_squelch;
 
      public:
-      fich_source_b_impl();
+      fich_source_b_impl(int data_type, int narrowband, int squelch);
       ~fich_source_b_impl();
 
       // Where all the action really happens

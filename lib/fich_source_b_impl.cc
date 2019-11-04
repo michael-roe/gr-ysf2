@@ -29,25 +29,25 @@ namespace gr {
   namespace ysf2 {
 
     fich_source_b::sptr
-    fich_source_b::make()
+    fich_source_b::make(int data_type, int narrowband, int squelch)
     {
       return gnuradio::get_initial_sptr
-        (new fich_source_b_impl());
+        (new fich_source_b_impl(data_type, narrowband, squelch));
     }
 
     /*
      * The private constructor
      */
-    fich_source_b_impl::fich_source_b_impl()
+    fich_source_b_impl::fich_source_b_impl(int data_type, int narrowband, int squelch)
       : gr::sync_block("fich_source_b",
               gr::io_signature::make(0, 0, 0),
               gr::io_signature::make(1, 1, sizeof(unsigned char)))
     {
       set_output_multiple(32);
       d_frame_number = 0;
-      d_squelch = 0;
-      d_narrowband = 1;
-      d_data_type = 2;
+      d_squelch = squelch;
+      d_narrowband = narrowband;
+      d_data_type = data_type;
     }
 
     /*
