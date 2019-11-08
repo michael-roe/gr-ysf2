@@ -64,6 +64,8 @@ namespace gr {
       /* Transmitter id */
       memcpy(d_msg + 55, hwid, 5);
 
+      /* Location */
+      memset(d_msg + 60, 0, 20);
     }
 
     /*
