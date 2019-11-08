@@ -34,7 +34,7 @@ namespace gr {
       char d_msg[80];
 
      public:
-      dch_errors_bb_impl();
+      dch_errors_bb_impl(const std::string &callsign);
       ~dch_errors_bb_impl();
 
       // Where all the action really happens

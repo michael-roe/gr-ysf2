@@ -29,21 +29,21 @@ namespace gr {
   namespace ysf2 {
 
     dch_errors_bb::sptr
-    dch_errors_bb::make()
+    dch_errors_bb::make(const std::string &callsign)
     {
       return gnuradio::get_initial_sptr
-        (new dch_errors_bb_impl());
+        (new dch_errors_bb_impl(callsign));
     }
 
     /*
      * The private constructor
      */
-    dch_errors_bb_impl::dch_errors_bb_impl()
+    dch_errors_bb_impl::dch_errors_bb_impl(const std::string &callsign)
       : gr::sync_block("dch_errors_bb",
               gr::io_signature::make(1, 1, sizeof(char)),
               gr::io_signature::make(1, 1, sizeof(char)))
     {
-      const char *callsign = "M0GXM";
+      const char *call_str = callsign.c_str();
       const char hwid[] = {0x46, 0x30, 0x64, 0x4f, 0x31};
       int i;
 
@@ -55,8 +55,8 @@ namespace gr {
       memcpy(d_msg + 5, hwid, 5);
 
       /* Source callsign */
-      strncpy(d_msg + 10, callsign, 10);
-      for (i = strlen(callsign); i<10; i++)
+      strncpy(d_msg + 10, call_str, 10);
+      for (i = strlen(call_str); i<10; i++)
       {
         d_msg[10 + i] = ' ';
       }

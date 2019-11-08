@@ -46,7 +46,7 @@ namespace gr {
        * class. ysf2::dch_errors_bb::make is the public interface for
        * creating new instances.
        */
-      static sptr make();
+      static sptr make(const std::string &callsign);
     };
 
   } // namespace ysf2
