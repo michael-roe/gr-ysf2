@@ -45,11 +45,17 @@ namespace gr {
               gr::io_signature::make(1, 1, sizeof(float)),
               gr::io_signature::make(1, 1, sizeof(unsigned char)))
     {
+      int i;
+
       set_output_multiple(49);
       set_tag_propagation_policy(TPP_DONT);
       d_offset = 0;
       d_threshold = 5;
       d_dropped = 0;
+      for (i=0; i<49; i++)
+      {
+        d_pad[i] = 0;
+      }
     }
 
     /*
@@ -134,7 +140,7 @@ namespace gr {
 	  add_item_tag(0, d_offset + 49*i, pmt::string_to_symbol("vech_dropped"),
 	    pmt::from_long(d_dropped));
 	  for (j=0; j<49; j++)
-	    out[49*i + j] = 0;
+	    out[49*i + j] = d_pad[j];
 	}
 
 	add_item_tag(0, d_offset + 49*i, pmt::string_to_symbol("rms_error"),
