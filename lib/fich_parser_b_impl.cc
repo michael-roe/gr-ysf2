@@ -124,6 +124,13 @@ namespace gr {
 	  pmt::from_long(frame_number));
 	dict = pmt::dict_add(dict, pmt::intern("data_type"),
 	  pmt::from_long(data_type));
+	if (block_total != 0)
+        {
+	  dict = pmt::dict_add(dict, pmt::intern("block_total"),
+	    pmt::from_long(block_total));
+	  dict = pmt::dict_add(dict, pmt::intern("block_number"),
+	    pmt::from_long(block_number));
+	}
 	if (squelch != 0)
 	{
 	  dict = pmt::dict_add(dict, pmt::intern("squelch"),
