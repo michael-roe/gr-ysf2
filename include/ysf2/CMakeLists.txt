@@ -27,5 +27,6 @@ install(FILES
     fich_parser_b.h
     dch_errors_bb.h
     dch_parser_b.h
-    dch_source_b.h DESTINATION include/ysf2
+    dch_source_b.h
+    vech_decode_bb.h DESTINATION include/ysf2
 )

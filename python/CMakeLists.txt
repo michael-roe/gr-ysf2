@@ -47,3 +47,4 @@ GR_ADD_TEST(qa_fich_parser_b ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa
 GR_ADD_TEST(qa_dch_errors_bb ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_dch_errors_bb.py)
 GR_ADD_TEST(qa_dch_parser_b ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_dch_parser_b.py)
 GR_ADD_TEST(qa_dch_source_b ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_dch_source_b.py)
+GR_ADD_TEST(qa_vech_decode_bb ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_vech_decode_bb.py)

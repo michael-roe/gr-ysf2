@@ -13,6 +13,7 @@
 #include "ysf2/dch_errors_bb.h"
 #include "ysf2/dch_parser_b.h"
 #include "ysf2/dch_source_b.h"
+#include "ysf2/vech_decode_bb.h"
 %}
 
 %include "ysf2/fich_source_b.h"
@@ -25,3 +26,5 @@ GR_SWIG_BLOCK_MAGIC2(ysf2, dch_errors_bb);
 GR_SWIG_BLOCK_MAGIC2(ysf2, dch_parser_b);
 %include "ysf2/dch_source_b.h"
 GR_SWIG_BLOCK_MAGIC2(ysf2, dch_source_b);
+%include "ysf2/vech_decode_bb.h"
+GR_SWIG_BLOCK_MAGIC2(ysf2, vech_decode_bb);
