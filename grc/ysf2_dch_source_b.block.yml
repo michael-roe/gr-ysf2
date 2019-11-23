@@ -1,0 +1,15 @@
+id: ysf2_dch_source_b
+label: DCH Source
+category: '[YSF2]'
+templates:
+  imports: import ysf2
+  make: ysf2.dch_source_b(${callsign})
+parameters:
+- id: callsign
+  label: Callsign
+  dtype: string
+outputs:
+- label: out
+  domain: stream
+  dtype: byte
+file_format: 1
