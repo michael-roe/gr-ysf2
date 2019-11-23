@@ -25,5 +25,6 @@ install(FILES
     ysf2_dch_parser_b.block.yml
     ysf2_dch_source_b.block.yml
     ysf2_vech_decode_bb.block.yml
-    ysf2_vech_decode_fb.block.yml DESTINATION share/gnuradio/grc/blocks
+    ysf2_vech_decode_fb.block.yml
+    ysf2_vech_encode_bb.block.yml DESTINATION share/gnuradio/grc/blocks
 )
