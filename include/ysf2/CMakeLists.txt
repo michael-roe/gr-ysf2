@@ -30,5 +30,6 @@ install(FILES
     dch_source_b.h
     vech_decode_bb.h
     vech_decode_fb.h
-    vech_encode_bb.h DESTINATION include/ysf2
+    vech_encode_bb.h
+    vocoder_dummy_bf.h DESTINATION include/ysf2
 )
