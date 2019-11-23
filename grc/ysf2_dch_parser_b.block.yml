@@ -11,4 +11,8 @@ inputs:
 outputs:
 -   domain: message
     id: callsign_data
+-   domain: message
+    id: hwid
+-   domain: message
+    id: location
 file_format: 1
