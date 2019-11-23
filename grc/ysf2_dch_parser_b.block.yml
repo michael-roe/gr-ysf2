@@ -1,0 +1,14 @@
+id: ysf2_dch_parser_b
+label: DCH Parser
+category: '[YSF2]'
+templates:
+  imports: import ysf2
+  make: ysf2.dch_parser_b()
+inputs:
+- label: in
+  domain: stream
+  dtype: byte
+outputs:
+-   domain: message
+    id: callsign_data
+file_format: 1

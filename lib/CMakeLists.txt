@@ -27,6 +27,7 @@ list(APPEND ysf2_sources
     fich_source_b_impl.cc
     fich_parser_b_impl.cc
     dch_errors_bb_impl.cc
+    dch_parser_b_impl.cc
 )
 
 set(ysf2_sources "${ysf2_sources}" PARENT_SCOPE)

@@ -21,5 +21,6 @@
 install(FILES
     ysf2_fich_source_b.block.yml
     ysf2_fich_parser_b.block.yml
-    ysf2_dch_errors_bb.block.yml DESTINATION share/gnuradio/grc/blocks
+    ysf2_dch_errors_bb.block.yml
+    ysf2_dch_parser_b.block.yml DESTINATION share/gnuradio/grc/blocks
 )

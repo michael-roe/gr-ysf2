@@ -25,5 +25,6 @@ install(FILES
     api.h
     fich_source_b.h
     fich_parser_b.h
-    dch_errors_bb.h DESTINATION include/ysf2
+    dch_errors_bb.h
+    dch_parser_b.h DESTINATION include/ysf2
 )
