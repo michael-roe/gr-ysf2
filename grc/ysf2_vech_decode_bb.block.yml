@@ -1,6 +1,6 @@
 id: ysf2_vech_decode_bb
 label: VECH Decode (byte)
-category: '[ySF2]'
+category: '[YSF2]'
 templates:
   imports: import ysf2
   make: ysf2.vech_decode_bb()
