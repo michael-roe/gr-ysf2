@@ -1,0 +1,702 @@
+options:
+  parameters:
+    author: Michael Roe
+    category: '[YSF2]'
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: hb
+    hier_block_src_path: '.:'
+    id: c4fm_tx
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: prompt
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: C4FM TX
+    window_size: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 8]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: fsm
+  id: variable
+  parameters:
+    comment: ''
+    value: gnuradio.trellis.fsm(1,2,[0b10011,0b11101])
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [523, 11]
+    rotation: 0
+    state: enabled
+- name: samp_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: '48000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [302, 11]
+    rotation: 0
+    state: enabled
+- name: analog_frequency_modulator_fc_0
+  id: analog_frequency_modulator_fc
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    sensitivity: 3.1459*900/samp_rate
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [845, 664]
+    rotation: 0
+    state: enabled
+- name: blocks_pack_k_bits_bb_0
+  id: blocks_pack_k_bits_bb
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    k: '2'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [654, 526]
+    rotation: 0
+    state: enabled
+- name: blocks_pack_k_bits_bb_1
+  id: blocks_pack_k_bits_bb
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    k: '2'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [964, 95]
+    rotation: 0
+    state: enabled
+- name: blocks_stream_mux_0
+  id: blocks_stream_mux
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    lengths: (96, 4)
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    type: byte
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [547, 172]
+    rotation: 0
+    state: enabled
+- name: blocks_stream_mux_1
+  id: blocks_stream_mux
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    lengths: (20,52)
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    type: byte
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1287, 337]
+    rotation: 0
+    state: enabled
+- name: blocks_stream_mux_2
+  id: blocks_stream_mux
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    lengths: (20,100,360)
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '3'
+    type: byte
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1191, 156]
+    rotation: 0
+    state: enabled
+- name: blocks_stream_mux_3
+  id: blocks_stream_mux
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    lengths: (96,4)
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    type: byte
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [636, 319]
+    rotation: 0
+    state: enabled
+- name: blocks_unpack_k_bits_bb_2
+  id: blocks_unpack_k_bits_bb
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    k: '8'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [167, 297]
+    rotation: 0
+    state: enabled
+- name: blocks_vector_source_x_0
+  id: blocks_vector_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    repeat: 'True'
+    tags: '[]'
+    type: byte
+    vector: (0, 0)
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [330, 218]
+    rotation: 0
+    state: enabled
+- name: blocks_vector_source_x_1
+  id: blocks_vector_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    repeat: 'True'
+    tags: '[]'
+    type: byte
+    vector: (1,0,0,1,0,0,1,1,1,1,0,1,0,1,1,1,0,1,0,1,0,0,0,1,0,0,1,0,0,0,0,1,1,0,0,1,1,1,0,0,0,0,1,0,1,1,1,1,0,1,1,0,1,1,0,0,1,1,0,1,0,0,0,0,1,1,1,0,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1,1,1,1,0,1,1,1,1,1,0,0,0,1)
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [72, 457]
+    rotation: 0
+    state: enabled
+- name: blocks_vector_source_x_2
+  id: blocks_vector_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    repeat: 'True'
+    tags: '[]'
+    type: byte
+    vector: (1,1,0,1,0,1,0,0,0,1,1,1,0,0,0,1,1,1,0,0,1,0,0,1,0,1,1,0,0,0,1,1,0,1,0,0,1,1,0,1)
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [738, 79]
+    rotation: 0
+    state: enabled
+- name: blocks_vector_source_x_3
+  id: blocks_vector_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    repeat: 'True'
+    tags: '[]'
+    type: byte
+    vector: (1,0,0,1,0,0,1,1,1,1,0,1,0,1,1,1,0,1,0,1,0,0,0,1,0,0,1,0,0,0,0,1,1,0,0,1,1,1,0,0,0,0,1,0,1,1,1,1,0,1,1,0,1,1,0,0,1,1,0,1,0,0,0,0,1,1,1,0,1,1,1,1,0,0,0,0,1,1,1,1)
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [68, 363]
+    rotation: 0
+    state: enabled
+- name: blocks_vector_source_x_4
+  id: blocks_vector_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    repeat: 'True'
+    tags: '[]'
+    type: byte
+    vector: (0, 0)
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [409, 375]
+    rotation: 0
+    state: enabled
+- name: blocks_xor_xx_0
+  id: blocks_xor_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [334, 514]
+    rotation: 0
+    state: enabled
+- name: blocks_xor_xx_1
+  id: blocks_xor_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [339, 302]
+    rotation: 0
+    state: enabled
+- name: c4fm_crc16_encode_bb_0
+  id: c4fm_crc16_encode_bb
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    default_length: '32'
+    length_tag: packet_len
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [165, 159]
+    rotation: 0
+    state: enabled
+- name: c4fm_crc16_encode_bb_1
+  id: c4fm_crc16_encode_bb
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    default_length: '80'
+    length_tag: packet_len
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [430, 307]
+    rotation: 0
+    state: enabled
+- name: c4fm_golay_encoder_bb_0
+  id: c4fm_golay_encoder_bb
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [368, 172]
+    rotation: 0
+    state: enabled
+- name: callsign
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: Callsign
+    short_id: callsign
+    type: str
+    value: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [199, 10]
+    rotation: 0
+    state: enabled
+- name: digital_chunks_to_symbols_xx_1
+  id: digital_chunks_to_symbols_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    dimension: '1'
+    in_type: byte
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_ports: '1'
+    out_type: float
+    symbol_table: (1,3,-1,-3)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [276, 667]
+    rotation: 0
+    state: enabled
+- name: import_0
+  id: import
+  parameters:
+    alias: ''
+    comment: ''
+    imports: import gnuradio.trellis
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [404, 11]
+    rotation: 0
+    state: enabled
+- name: pad_sink_0
+  id: pad_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    label: out
+    num_streams: '1'
+    optional: 'False'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1063, 664]
+    rotation: 0
+    state: enabled
+- name: pad_source_0
+  id: pad_source
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    label: in
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_streams: '1'
+    optional: 'False'
+    type: byte
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [14, 542]
+    rotation: 0
+    state: enabled
+- name: root_raised_cosine_filter_0
+  id: root_raised_cosine_filter
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha: '0.35'
+    comment: ''
+    decim: '10'
+    gain: '10'
+    interp: '10'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    ntaps: '100'
+    samp_rate: samp_rate
+    sym_rate: '4800'
+    type: interp_fir_filter_fff
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [583, 623]
+    rotation: 0
+    state: enabled
+- name: trellis_encoder_xx_0
+  id: trellis_encoder_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    blocklength: '0'
+    blockwise: 'False'
+    comment: ''
+    fsm_args: fsm
+    init_state: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: bb
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [704, 177]
+    rotation: 0
+    state: enabled
+- name: trellis_encoder_xx_1
+  id: trellis_encoder_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    blocklength: '0'
+    blockwise: 'False'
+    comment: ''
+    fsm_args: fsm
+    init_state: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: bb
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [789, 324]
+    rotation: 0
+    state: enabled
+- name: trellis_permutation_0
+  id: trellis_permutation
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    interleaver_size: '100'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    syms_per_block: '1'
+    table: (0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,1,6,11,16,21,26,31,36,41,46,51,56,61,66,71,76,81,86,91,96,2,7,12,17,22,27,32,37,42,47,52,57,62,67,72,77,82,87,92,97,3,8,13,18,23,28,33,38,43,48,53,58,63,68,73,78,83,88,93,98,4,9,14,19,24,29,34,39,44,49,54,59,64,69,74,79,84,89,94,99)
+    type: byte
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [955, 168]
+    rotation: 0
+    state: enabled
+- name: trellis_permutation_1
+  id: trellis_permutation
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    interleaver_size: '104'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    syms_per_block: '1'
+    table: (0,26,52,78,1,27,53,79,2,28,54,80,3,29,55,81,4,30,56,82,5,31,57,83,6,32,58,84,7,33,59,85,8,34,60,86,9,35,61,87,10,36,62,88,11,37,63,89,12,38,64,90,13,39,65,91,14,40,66,92,15,41,67,93,16,42,68,94,17,43,69,95,18,44,70,96,19,45,71,97,20,46,72,98,21,47,73,99,22,48,74,100,23,49,75,101,24,50,76,102,25,51,77,103)
+    type: byte
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [445, 510]
+    rotation: 0
+    state: enabled
+- name: trellis_permutation_2
+  id: trellis_permutation
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    interleaver_size: '100'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    syms_per_block: '1'
+    table: (0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,1,6,11,16,21,26,31,36,41,46,51,56,61,66,71,76,81,86,91,96,2,7,12,17,22,27,32,37,42,47,52,57,62,67,72,77,82,87,92,97,3,8,13,18,23,28,33,38,43,48,53,58,63,68,73,78,83,88,93,98,4,9,14,19,24,29,34,39,44,49,54,59,64,69,74,79,84,89,94,99)
+    type: byte
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1032, 316]
+    rotation: 0
+    state: enabled
+- name: virtual_sink_0
+  id: virtual_sink
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: mux
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1392, 185]
+    rotation: 0
+    state: true
+- name: virtual_source_0
+  id: virtual_source
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: mux
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [19, 663]
+    rotation: 0
+    state: true
+- name: ysf2_dch_source_b_0
+  id: ysf2_dch_source_b
+  parameters:
+    affinity: ''
+    alias: ''
+    callsign: callsign
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [11, 296]
+    rotation: 0
+    state: enabled
+- name: ysf2_fich_source_b_0
+  id: ysf2_fich_source_b
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    data_type: '2'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    narrowband: '1'
+    squelch: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [6, 152]
+    rotation: 0
+    state: enabled
+- name: ysf2_vech_encode_bb_0
+  id: ysf2_vech_encode_bb
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [162, 546]
+    rotation: 0
+    state: enabled
+
+connections:
+- [analog_frequency_modulator_fc_0, '0', pad_sink_0, '0']
+- [blocks_pack_k_bits_bb_0, '0', blocks_stream_mux_1, '1']
+- [blocks_pack_k_bits_bb_1, '0', blocks_stream_mux_2, '0']
+- [blocks_stream_mux_0, '0', trellis_encoder_xx_0, '0']
+- [blocks_stream_mux_1, '0', blocks_stream_mux_2, '2']
+- [blocks_stream_mux_2, '0', virtual_sink_0, '0']
+- [blocks_stream_mux_3, '0', trellis_encoder_xx_1, '0']
+- [blocks_unpack_k_bits_bb_2, '0', blocks_xor_xx_1, '0']
+- [blocks_vector_source_x_0, '0', blocks_stream_mux_0, '1']
+- [blocks_vector_source_x_1, '0', blocks_xor_xx_0, '0']
+- [blocks_vector_source_x_2, '0', blocks_pack_k_bits_bb_1, '0']
+- [blocks_vector_source_x_3, '0', blocks_xor_xx_1, '1']
+- [blocks_vector_source_x_4, '0', blocks_stream_mux_3, '1']
+- [blocks_xor_xx_0, '0', trellis_permutation_1, '0']
+- [blocks_xor_xx_1, '0', c4fm_crc16_encode_bb_1, '0']
+- [c4fm_crc16_encode_bb_0, '0', c4fm_golay_encoder_bb_0, '0']
+- [c4fm_crc16_encode_bb_1, '0', blocks_stream_mux_3, '0']
+- [c4fm_golay_encoder_bb_0, '0', blocks_stream_mux_0, '0']
+- [digital_chunks_to_symbols_xx_1, '0', root_raised_cosine_filter_0, '0']
+- [pad_source_0, '0', ysf2_vech_encode_bb_0, '0']
+- [root_raised_cosine_filter_0, '0', analog_frequency_modulator_fc_0, '0']
+- [trellis_encoder_xx_0, '0', trellis_permutation_0, '0']
+- [trellis_encoder_xx_1, '0', trellis_permutation_2, '0']
+- [trellis_permutation_0, '0', blocks_stream_mux_2, '1']
+- [trellis_permutation_1, '0', blocks_pack_k_bits_bb_0, '0']
+- [trellis_permutation_2, '0', blocks_stream_mux_1, '0']
+- [virtual_source_0, '0', digital_chunks_to_symbols_xx_1, '0']
+- [ysf2_dch_source_b_0, '0', blocks_unpack_k_bits_bb_2, '0']
+- [ysf2_fich_source_b_0, '0', c4fm_crc16_encode_bb_0, '0']
+- [ysf2_vech_encode_bb_0, '0', blocks_xor_xx_0, '1']
+
+metadata:
+  file_format: 1
