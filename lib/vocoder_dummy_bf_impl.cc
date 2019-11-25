@@ -106,6 +106,8 @@ namespace gr {
 	  }
 	}
       }
+      /* FIXME: propogate tags */
+
       // Tell runtime system how many input items we consumed on
       // each input stream.
       consume_each ((noutput_items/4800)*49*5);

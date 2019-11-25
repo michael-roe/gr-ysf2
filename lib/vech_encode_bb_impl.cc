@@ -93,6 +93,8 @@ namespace gr {
 
       d_offset += blocks*104;
 
+      /* FIXME: propogate tags */
+
       // Tell runtime system how many input items we consumed on
       // each input stream.
       consume_each (blocks*49);
