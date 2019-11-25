@@ -1,6 +1,6 @@
 options:
   parameters:
-    author: Nichael Roe
+    author: Michael Roe
     category: '[YSF2]'
     cmake_opt: ''
     comment: ''
@@ -10,7 +10,7 @@ options:
     gen_linking: dynamic
     generate_options: hb
     hier_block_src_path: '.:'
-    id: c4fm_rx_stage1
+    id: c4fm_rx_tch
     max_nouts: '0'
     output_language: python
     placement: (0,0)
@@ -21,7 +21,7 @@ options:
     run_options: prompt
     sizing_mode: fixed
     thread_safe_setters: ''
-    title: C4FM RX Stage 1
+    title: C4FM RX TCH
     window_size: ''
   states:
     bus_sink: false
@@ -32,19 +32,7 @@ options:
     state: enabled
 
 blocks:
-- name: fsk_deviation_hz
-  id: variable
-  parameters:
-    comment: ''
-    value: '900'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [301, 12]
-    rotation: 0
-    state: enabled
-- name: fsm_stage1
+- name: fsm
   id: variable
   parameters:
     comment: ''
@@ -53,7 +41,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [563, 17]
+    coordinate: [543, 17]
     rotation: 0
     state: enabled
 - name: samp_rate
@@ -65,23 +53,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [198, 12]
-    rotation: 0
-    state: enabled
-- name: analog_quadrature_demod_cf_0
-  id: analog_quadrature_demod_cf
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    gain: samp_rate/(math.pi*fsk_deviation_hz)
-    maxoutbuf: '0'
-    minoutbuf: '0'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [175, 185]
+    coordinate: [205, 14]
     rotation: 0
     state: enabled
 - name: blocks_keep_m_in_n_0
@@ -90,18 +62,18 @@ blocks:
     affinity: ''
     alias: ''
     comment: ''
-    m: '96'
+    m: '36'
     maxoutbuf: '0'
     minoutbuf: '0'
-    n: '100'
+    n: '72'
     offset: '0'
-    type: byte
+    type: complex
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [800, 635]
-    rotation: 180
+    coordinate: [342, 172]
+    rotation: 0
     state: enabled
 - name: blocks_keep_m_in_n_1
   id: blocks_keep_m_in_n
@@ -109,20 +81,20 @@ blocks:
     affinity: ''
     alias: ''
     comment: ''
-    m: '12'
+    m: '176'
     maxoutbuf: '0'
     minoutbuf: '0'
-    n: '24'
+    n: '180'
     offset: '0'
     type: byte
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [605, 635]
-    rotation: 180
-    state: true
-- name: blocks_multiply_const_vxx_1
+    coordinate: [96, 318]
+    rotation: 0
+    state: enabled
+- name: blocks_multiply_const_vxx_0
   id: blocks_multiply_const_vxx
   parameters:
     affinity: ''
@@ -137,44 +109,61 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [801, 479]
+    coordinate: [741, 187]
     rotation: 0
     state: enabled
-- name: c4fm_c4fm_soft_decision_fc_0
-  id: c4fm_c4fm_soft_decision_fc
+- name: blocks_pack_k_bits_bb_0
+  id: blocks_pack_k_bits_bb
   parameters:
     affinity: ''
     alias: ''
     comment: ''
-    gain: math.sqrt(0.5)
+    k: '8'
     maxoutbuf: '0'
     minoutbuf: '0'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [641, 184]
+    coordinate: [574, 350]
     rotation: 0
     state: enabled
-- name: c4fm_correlate_access_code_tag_cc_0
-  id: c4fm_correlate_access_code_tag_cc
+- name: blocks_vector_source_x_0
+  id: blocks_vector_source_x
   parameters:
     affinity: ''
     alias: ''
     comment: ''
-    length: '480'
     maxoutbuf: '0'
     minoutbuf: '0'
-    sync: '0xd471c9634d '
-    sync_len: '40'
-    threshold: '20'
-    threshold2: '16'
+    repeat: 'True'
+    tags: '[]'
+    type: byte
+    vector: (1,0,0,1,0,0,1,1,1,1,0,1,0,1,1,1,0,1,0,1,0,0,0,1,0,0,1,0,0,0,0,1,1,0,0,1,1,1,0,0,0,0,1,0,1,1,1,1,0,1,1,0,1,1,0,0,1,1,0,1,0,0,0,0,1,1,1,0,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1,1,1,1,0,1,1,1,1,1,0,0,0,1,0,1,1,1,0,0,1,1,0,0,1,0,0,0,0,0,1,0,0,1,0,1,0,0,1,1,1,0,1,1,0,1,0,0,0,1,1,1,1,0,0,1,1,1,1,1,0,0,1,1,0,1,1,0,0,0)
+    vlen: '1'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [125, 281]
-    rotation: 180
+    coordinate: [199, 411]
+    rotation: 0
+    state: enabled
+- name: blocks_xor_xx_0
+  id: blocks_xor_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [474, 337]
+    rotation: 0
     state: enabled
 - name: c4fm_crc16_decode_bb_0
   id: c4fm_crc16_decode_bb
@@ -182,7 +171,7 @@ blocks:
     affinity: ''
     alias: ''
     comment: ''
-    default_length: '48'
+    default_length: '176'
     error_tag: crc_error
     length_tag: packet_len
     maxoutbuf: '0'
@@ -191,57 +180,41 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [323, 636]
-    rotation: 180
+    coordinate: [261, 318]
+    rotation: 0
     state: true
-- name: digital_clock_recovery_mm_xx_0
-  id: digital_clock_recovery_mm_xx
+- name: c4fm_type_demux_cc_0
+  id: c4fm_type_demux_cc
   parameters:
     affinity: ''
     alias: ''
     comment: ''
-    gain_mu: '0.175'
-    gain_omega: 0.25*0.175*0.175
+    data_type: '2'
+    frame_type: '2'
+    length: '360'
     maxoutbuf: '0'
     minoutbuf: '0'
-    mu: '0.5'
-    omega: '10'
-    omega_relative_limit: '0.001'
-    type: complex
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [638, 281]
-    rotation: 180
-    state: enabled
-- name: digital_header_payload_demux_0
-  id: digital_header_payload_demux
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    guard_interval: '0'
-    header_len: '100'
-    header_padding: '0'
-    items_per_symbol: '1'
-    length_tag_key: '"payload_len"'
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    output_symbols: 'True'
-    samp_rate: '4800'
-    special_tags: ()
-    timing_tag_key: '"rx_time"'
-    trigger_tag_key: '"correlation"'
-    type: complex
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [169, 431]
+    coordinate: [175, 172]
     rotation: 0
     state: enabled
 - name: import_0
+  id: import
+  parameters:
+    alias: ''
+    comment: ''
+    imports: import math
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [312, 16]
+    rotation: 0
+    state: enabled
+- name: import_1
   id: import
   parameters:
     alias: ''
@@ -251,7 +224,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [434, 16]
+    coordinate: [419, 17]
     rotation: 0
     state: enabled
 - name: pad_sink_0
@@ -263,13 +236,13 @@ blocks:
     label: out
     num_streams: '1'
     optional: 'False'
-    type: complex
+    type: byte
     vlen: '1'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [551, 575]
+    coordinate: [729, 349]
     rotation: 0
     state: enabled
 - name: pad_source_0
@@ -289,30 +262,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [21, 184]
-    rotation: 0
-    state: enabled
-- name: root_raised_cosine_filter_0
-  id: root_raised_cosine_filter
-  parameters:
-    affinity: ''
-    alias: ''
-    alpha: '0.35'
-    comment: ''
-    decim: '1'
-    gain: '1'
-    interp: '1'
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    ntaps: '100'
-    samp_rate: samp_rate
-    sym_rate: '4800'
-    type: fir_filter_fff
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [371, 144]
+    coordinate: [19, 189]
     rotation: 0
     state: enabled
 - name: trellis_metrics_x_0
@@ -332,7 +282,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1002, 456]
+    coordinate: [922, 164]
     rotation: 0
     state: enabled
 - name: trellis_permutation_0
@@ -341,18 +291,18 @@ blocks:
     affinity: ''
     alias: ''
     comment: ''
-    interleaver_size: '100'
+    interleaver_size: '180'
     maxoutbuf: '0'
     minoutbuf: '0'
     syms_per_block: '1'
-    table: (0,20,40,60,80,1,21,41,61,81,2,22,42,62,82,3,23,43,63,83,4,24,44,64,84,5,25,45,65,85,6,26,46,66,86,7,27,47,67,87,8,28,48,68,88,9,29,49,69,89,10,30,50,70,90,11,31,51,71,91,12,32,52,72,92,13,33,53,73,93,14,34,54,74,94,15,35,55,75,95,16,36,56,76,96,17,37,57,77,97,18,38,58,78,98,19,39,59,79,99)
+    table: (0,20,40,60,80,100,120,140,160,1,21,41,61,81,101,121,141,161,2,22,42,62,82,102,122,142,162,3,23,43,63,83,103,123,143,163,4,24,44,64,84,104,124,144,164,5,25,45,65,85,105,125,145,165,6,26,46,66,86,106,126,146,166,7,27,47,67,87,107,127,147,167,8,28,48,68,88,108,128,148,168,9,29,49,69,89,109,129,149,169,10,30,50,70,90,110,130,150,170,11,31,51,71,91,111,131,151,171,12,32,52,72,92,112,132,152,172,13,33,53,73,93,113,133,153,173,14,34,54,74,94,114,134,154,174,15,35,55,75,95,115,135,155,175,16,36,56,76,96,116,136,156,176,17,37,57,77,97,117,137,157,177,18,38,58,78,98,118,138,158,178,19,39,59,79,99,119,139,159,179)
     type: complex
     vlen: '1'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [565, 463]
+    coordinate: [518, 172]
     rotation: 0
     state: enabled
 - name: trellis_viterbi_x_0
@@ -360,10 +310,10 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
-    block_size: '100'
+    block_size: '180'
     comment: ''
     final_state: '0'
-    fsm_args: fsm_stage1
+    fsm_args: fsm
     init_state: '0'
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -372,42 +322,23 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1001, 627]
-    rotation: 180
-    state: enabled
-- name: ysf2_fich_parser_b_0
-  id: ysf2_fich_parser_b
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [156, 655]
-    rotation: 180
+    coordinate: [1145, 161]
+    rotation: 0
     state: enabled
 
 connections:
-- [analog_quadrature_demod_cf_0, '0', root_raised_cosine_filter_0, '0']
-- [blocks_keep_m_in_n_0, '0', blocks_keep_m_in_n_1, '0']
+- [blocks_keep_m_in_n_0, '0', trellis_permutation_0, '0']
 - [blocks_keep_m_in_n_1, '0', c4fm_crc16_decode_bb_0, '0']
-- [blocks_multiply_const_vxx_1, '0', trellis_metrics_x_0, '0']
-- [c4fm_c4fm_soft_decision_fc_0, '0', digital_clock_recovery_mm_xx_0, '0']
-- [c4fm_correlate_access_code_tag_cc_0, '0', digital_header_payload_demux_0, '0']
-- [c4fm_crc16_decode_bb_0, '0', ysf2_fich_parser_b_0, '0']
-- [digital_clock_recovery_mm_xx_0, '0', c4fm_correlate_access_code_tag_cc_0, '0']
-- [digital_header_payload_demux_0, '0', trellis_permutation_0, '0']
-- [digital_header_payload_demux_0, '1', pad_sink_0, '0']
-- [pad_source_0, '0', analog_quadrature_demod_cf_0, '0']
-- [root_raised_cosine_filter_0, '0', c4fm_c4fm_soft_decision_fc_0, '0']
+- [blocks_multiply_const_vxx_0, '0', trellis_metrics_x_0, '0']
+- [blocks_pack_k_bits_bb_0, '0', pad_sink_0, '0']
+- [blocks_vector_source_x_0, '0', blocks_xor_xx_0, '1']
+- [blocks_xor_xx_0, '0', blocks_pack_k_bits_bb_0, '0']
+- [c4fm_crc16_decode_bb_0, '0', blocks_xor_xx_0, '0']
+- [c4fm_type_demux_cc_0, '0', blocks_keep_m_in_n_0, '0']
+- [pad_source_0, '0', c4fm_type_demux_cc_0, '0']
 - [trellis_metrics_x_0, '0', trellis_viterbi_x_0, '0']
-- [trellis_permutation_0, '0', blocks_multiply_const_vxx_1, '0']
-- [trellis_viterbi_x_0, '0', blocks_keep_m_in_n_0, '0']
-- [ysf2_fich_parser_b_0, header_data, digital_header_payload_demux_0, header_data]
+- [trellis_permutation_0, '0', blocks_multiply_const_vxx_0, '0']
+- [trellis_viterbi_x_0, '0', blocks_keep_m_in_n_1, '0']
 
 metadata:
   file_format: 1

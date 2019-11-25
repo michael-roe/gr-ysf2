@@ -1,6 +1,6 @@
 options:
   parameters:
-    author: Nichael Roe
+    author: Michael Roe
     category: '[YSF2]'
     cmake_opt: ''
     comment: ''
@@ -10,7 +10,7 @@ options:
     gen_linking: dynamic
     generate_options: hb
     hier_block_src_path: '.:'
-    id: c4fm_rx_stage1
+    id: c4fm_rx_dch
     max_nouts: '0'
     output_language: python
     placement: (0,0)
@@ -21,7 +21,7 @@ options:
     run_options: prompt
     sizing_mode: fixed
     thread_safe_setters: ''
-    title: C4FM RX Stage 1
+    title: C4FM RX DCH
     window_size: ''
   states:
     bus_sink: false
@@ -32,19 +32,7 @@ options:
     state: enabled
 
 blocks:
-- name: fsk_deviation_hz
-  id: variable
-  parameters:
-    comment: ''
-    value: '900'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [301, 12]
-    rotation: 0
-    state: enabled
-- name: fsm_stage1
+- name: fsm
   id: variable
   parameters:
     comment: ''
@@ -53,7 +41,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [563, 17]
+    coordinate: [546, 13]
     rotation: 0
     state: enabled
 - name: samp_rate
@@ -65,26 +53,29 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [198, 12]
+    coordinate: [203, 13]
     rotation: 0
     state: enabled
-- name: analog_quadrature_demod_cf_0
-  id: analog_quadrature_demod_cf
+- name: blocks_keep_m_in_n_0
+  id: blocks_keep_m_in_n
   parameters:
     affinity: ''
     alias: ''
     comment: ''
-    gain: samp_rate/(math.pi*fsk_deviation_hz)
+    m: '20'
     maxoutbuf: '0'
     minoutbuf: '0'
+    n: '72'
+    offset: '0'
+    type: complex
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [175, 185]
+    coordinate: [321, 136]
     rotation: 0
     state: enabled
-- name: blocks_keep_m_in_n_0
+- name: blocks_keep_m_in_n_1
   id: blocks_keep_m_in_n
   parameters:
     affinity: ''
@@ -100,29 +91,29 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [800, 635]
-    rotation: 180
+    coordinate: [62, 251]
+    rotation: 0
     state: enabled
-- name: blocks_keep_m_in_n_1
+- name: blocks_keep_m_in_n_2
   id: blocks_keep_m_in_n
   parameters:
     affinity: ''
     alias: ''
     comment: ''
-    m: '12'
+    m: '80'
     maxoutbuf: '0'
     minoutbuf: '0'
-    n: '24'
+    n: '96'
     offset: '0'
     type: byte
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [605, 635]
-    rotation: 180
-    state: true
-- name: blocks_multiply_const_vxx_1
+    coordinate: [257, 594]
+    rotation: 0
+    state: disabled
+- name: blocks_multiply_const_vxx_0
   id: blocks_multiply_const_vxx
   parameters:
     affinity: ''
@@ -137,44 +128,61 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [801, 479]
+    coordinate: [689, 152]
     rotation: 0
     state: enabled
-- name: c4fm_c4fm_soft_decision_fc_0
-  id: c4fm_c4fm_soft_decision_fc
+- name: blocks_pack_k_bits_bb_0
+  id: blocks_pack_k_bits_bb
   parameters:
     affinity: ''
     alias: ''
     comment: ''
-    gain: math.sqrt(0.5)
+    k: '8'
     maxoutbuf: '0'
     minoutbuf: '0'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [641, 184]
+    coordinate: [552, 284]
     rotation: 0
     state: enabled
-- name: c4fm_correlate_access_code_tag_cc_0
-  id: c4fm_correlate_access_code_tag_cc
+- name: blocks_vector_source_x_0
+  id: blocks_vector_source_x
   parameters:
     affinity: ''
     alias: ''
     comment: ''
-    length: '480'
     maxoutbuf: '0'
     minoutbuf: '0'
-    sync: '0xd471c9634d '
-    sync_len: '40'
-    threshold: '20'
-    threshold2: '16'
+    repeat: 'True'
+    tags: '[]'
+    type: byte
+    vector: (1,0,0,1,0,0,1,1,1,1,0,1,0,1,1,1,0,1,0,1,0,0,0,1,0,0,1,0,0,0,0,1,1,0,0,1,1,1,0,0,0,0,1,0,1,1,1,1,0,1,1,0,1,1,0,0,1,1,0,1,0,0,0,0,1,1,1,0,1,1,1,1,0,0,0,0,1,1,1,1)
+    vlen: '1'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [125, 281]
-    rotation: 180
+    coordinate: [188, 344]
+    rotation: 0
+    state: enabled
+- name: blocks_xor_xx_0
+  id: blocks_xor_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [448, 272]
+    rotation: 0
     state: enabled
 - name: c4fm_crc16_decode_bb_0
   id: c4fm_crc16_decode_bb
@@ -182,7 +190,7 @@ blocks:
     affinity: ''
     alias: ''
     comment: ''
-    default_length: '48'
+    default_length: '96'
     error_tag: crc_error
     length_tag: packet_len
     maxoutbuf: '0'
@@ -191,54 +199,25 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [323, 636]
-    rotation: 180
-    state: true
-- name: digital_clock_recovery_mm_xx_0
-  id: digital_clock_recovery_mm_xx
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    gain_mu: '0.175'
-    gain_omega: 0.25*0.175*0.175
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    mu: '0.5'
-    omega: '10'
-    omega_relative_limit: '0.001'
-    type: complex
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [638, 281]
-    rotation: 180
+    coordinate: [237, 252]
+    rotation: 0
     state: enabled
-- name: digital_header_payload_demux_0
-  id: digital_header_payload_demux
+- name: c4fm_type_demux_cc_0
+  id: c4fm_type_demux_cc
   parameters:
     affinity: ''
     alias: ''
     comment: ''
-    guard_interval: '0'
-    header_len: '100'
-    header_padding: '0'
-    items_per_symbol: '1'
-    length_tag_key: '"payload_len"'
+    data_type: '2'
+    frame_type: '1'
+    length: '360'
     maxoutbuf: '0'
     minoutbuf: '0'
-    output_symbols: 'True'
-    samp_rate: '4800'
-    special_tags: ()
-    timing_tag_key: '"rx_time"'
-    trigger_tag_key: '"correlation"'
-    type: complex
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [169, 431]
+    coordinate: [163, 136]
     rotation: 0
     state: enabled
 - name: import_0
@@ -251,7 +230,20 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [434, 16]
+    coordinate: [419, 15]
+    rotation: 0
+    state: enabled
+- name: import_1
+  id: import
+  parameters:
+    alias: ''
+    comment: ''
+    imports: import math
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [312, 15]
     rotation: 0
     state: enabled
 - name: pad_sink_0
@@ -263,13 +255,13 @@ blocks:
     label: out
     num_streams: '1'
     optional: 'False'
-    type: complex
+    type: byte
     vlen: '1'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [551, 575]
+    coordinate: [714, 284]
     rotation: 0
     state: enabled
 - name: pad_source_0
@@ -289,30 +281,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [21, 184]
-    rotation: 0
-    state: enabled
-- name: root_raised_cosine_filter_0
-  id: root_raised_cosine_filter
-  parameters:
-    affinity: ''
-    alias: ''
-    alpha: '0.35'
-    comment: ''
-    decim: '1'
-    gain: '1'
-    interp: '1'
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    ntaps: '100'
-    samp_rate: samp_rate
-    sym_rate: '4800'
-    type: fir_filter_fff
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [371, 144]
+    coordinate: [21, 152]
     rotation: 0
     state: enabled
 - name: trellis_metrics_x_0
@@ -332,7 +301,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1002, 456]
+    coordinate: [852, 127]
     rotation: 0
     state: enabled
 - name: trellis_permutation_0
@@ -352,7 +321,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [565, 463]
+    coordinate: [476, 136]
     rotation: 0
     state: enabled
 - name: trellis_viterbi_x_0
@@ -363,7 +332,7 @@ blocks:
     block_size: '100'
     comment: ''
     final_state: '0'
-    fsm_args: fsm_stage1
+    fsm_args: fsm
     init_state: '0'
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -372,42 +341,23 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1001, 627]
-    rotation: 180
-    state: enabled
-- name: ysf2_fich_parser_b_0
-  id: ysf2_fich_parser_b
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [156, 655]
-    rotation: 180
+    coordinate: [1067, 128]
+    rotation: 0
     state: enabled
 
 connections:
-- [analog_quadrature_demod_cf_0, '0', root_raised_cosine_filter_0, '0']
-- [blocks_keep_m_in_n_0, '0', blocks_keep_m_in_n_1, '0']
+- [blocks_keep_m_in_n_0, '0', trellis_permutation_0, '0']
 - [blocks_keep_m_in_n_1, '0', c4fm_crc16_decode_bb_0, '0']
-- [blocks_multiply_const_vxx_1, '0', trellis_metrics_x_0, '0']
-- [c4fm_c4fm_soft_decision_fc_0, '0', digital_clock_recovery_mm_xx_0, '0']
-- [c4fm_correlate_access_code_tag_cc_0, '0', digital_header_payload_demux_0, '0']
-- [c4fm_crc16_decode_bb_0, '0', ysf2_fich_parser_b_0, '0']
-- [digital_clock_recovery_mm_xx_0, '0', c4fm_correlate_access_code_tag_cc_0, '0']
-- [digital_header_payload_demux_0, '0', trellis_permutation_0, '0']
-- [digital_header_payload_demux_0, '1', pad_sink_0, '0']
-- [pad_source_0, '0', analog_quadrature_demod_cf_0, '0']
-- [root_raised_cosine_filter_0, '0', c4fm_c4fm_soft_decision_fc_0, '0']
+- [blocks_multiply_const_vxx_0, '0', trellis_metrics_x_0, '0']
+- [blocks_pack_k_bits_bb_0, '0', pad_sink_0, '0']
+- [blocks_vector_source_x_0, '0', blocks_xor_xx_0, '1']
+- [blocks_xor_xx_0, '0', blocks_pack_k_bits_bb_0, '0']
+- [c4fm_crc16_decode_bb_0, '0', blocks_xor_xx_0, '0']
+- [c4fm_type_demux_cc_0, '0', blocks_keep_m_in_n_0, '0']
+- [pad_source_0, '0', c4fm_type_demux_cc_0, '0']
 - [trellis_metrics_x_0, '0', trellis_viterbi_x_0, '0']
-- [trellis_permutation_0, '0', blocks_multiply_const_vxx_1, '0']
-- [trellis_viterbi_x_0, '0', blocks_keep_m_in_n_0, '0']
-- [ysf2_fich_parser_b_0, header_data, digital_header_payload_demux_0, header_data]
+- [trellis_permutation_0, '0', blocks_multiply_const_vxx_0, '0']
+- [trellis_viterbi_x_0, '0', blocks_keep_m_in_n_1, '0']
 
 metadata:
   file_format: 1
