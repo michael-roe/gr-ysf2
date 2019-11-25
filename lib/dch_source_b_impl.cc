@@ -49,7 +49,9 @@ namespace gr {
       /* This is the same hwid as the radio I used for interop testing */
 
       set_output_multiple(10);
+      d_frame_number_key = pmt::intern("frame_number");
       d_frame_number = 0;
+      d_offset = 0;
       memset(d_msg, ' ', 80);
 
       /* Destination group - wildcard + source hardware id */
@@ -95,8 +97,11 @@ namespace gr {
           *out = d_msg[d_frame_number*10 + j];
 	  out++;
 	}
+	add_item_tag(0, d_offset + i*10, d_frame_number_key, pmt::from_long(d_frame_number));
 	d_frame_number = (d_frame_number + 1) & 0x7;
       }
+
+      d_offset += noutput_items;
 
       // Tell runtime system how many output items we produced.
       return noutput_items;

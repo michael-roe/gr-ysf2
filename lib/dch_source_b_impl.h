@@ -29,8 +29,10 @@ namespace gr {
     class dch_source_b_impl : public dch_source_b
     {
      private:
+      unsigned long long d_offset;
       char d_msg[80];
       int d_frame_number;
+      pmt::pmt_t d_frame_number_key;
 
      public:
       dch_source_b_impl(const std::string &callsign);
