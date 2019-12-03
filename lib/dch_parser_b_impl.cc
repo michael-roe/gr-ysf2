@@ -74,6 +74,7 @@ namespace gr {
       char hwid[11];
       char location[21];
       int len;
+      int valid;
 
       for (i=0; i<noutput_items/10; i++)
       {
@@ -105,8 +106,27 @@ namespace gr {
               len--;
 	    }
 	    callsign[len] = '\0';
-	    message_port_pub(d_port_callsign, pmt::cons(pmt::intern("callsign"),
-	      pmt::intern(callsign)));
+	    /*
+	     * Valid callsigns may contain letters from the Latin alphabet,
+	     * digits, and a slash character. Bytes with the top bit set
+	     * are definitely not valid characters, are probably bit errors
+	     * caused by noise on the channel, and might cause problems blocks
+	     * that try to process them. So we ignore these obviously bad
+	     * characters.
+	     */
+	    valid = 1;
+	    for (j=0; j<len; j++)
+	    {
+	      if (callsign[j] & 0x80)
+	      {
+	        valid = 0;
+	      }
+	    }
+	    if (valid)
+	    {
+	      message_port_pub(d_port_callsign, pmt::cons(pmt::intern("callsign"),
+	        pmt::intern(callsign)));
+	    }
 	  }
 	  else if (frame_number == 5)
 	  {
