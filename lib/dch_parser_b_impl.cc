@@ -71,7 +71,7 @@ namespace gr {
       int frame_number;
       std::vector<tag_t> tags;
       char callsign[11];
-      char hwid[11];
+      char hwid[6];
       char location[21];
       int len;
       int valid;
@@ -130,12 +130,21 @@ namespace gr {
 	  }
 	  else if (frame_number == 5)
 	  {
-            for (j=0; j<5; j++)
-            {
-              sprintf(hwid + 2*j, "%02x", in[10*i + j + 5]);
-            }
-            message_port_pub(d_port_hwid, pmt::cons(pmt::intern("hwid"),
-              pmt::intern(hwid)));
+            memcpy(hwid, in + 10*i + 5, 5);
+	    hwid[5] = '\0';
+	    valid = 1;
+	    for (j=0; j<5; j++)
+	    {
+              if (hwid[j] & 0x80)
+	      {
+	        valid = 0;
+	      }
+	    }
+	    if (valid)
+	    {
+              message_port_pub(d_port_hwid, pmt::cons(pmt::intern("hwid"),
+                pmt::intern(hwid)));
+	    }
           }
 	  else if (frame_number == 6)
 	  {
