@@ -7,5 +7,5 @@
 #
 
 install(FILES
-    DESTINATION share/gnuradio/grc/blocks
+    ysf2_fich_parser_b.block.yml DESTINATION share/gnuradio/grc/blocks
 )

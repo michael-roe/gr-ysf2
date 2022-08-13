@@ -12,6 +12,7 @@
 include(GrPlatform) #define LIB_SUFFIX
 
 list(APPEND ysf2_sources
+    fich_parser_b_impl.cc
 )
 
 set(ysf2_sources "${ysf2_sources}" PARENT_SCOPE)

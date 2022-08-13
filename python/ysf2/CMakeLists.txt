@@ -39,3 +39,4 @@ add_custom_target(
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}
           ${PROJECT_BINARY_DIR}/test_modules/gnuradio/ysf2/
 )
+GR_ADD_TEST(qa_fich_parser_b ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_fich_parser_b.py)
