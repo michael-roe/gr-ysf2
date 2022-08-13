@@ -11,5 +11,5 @@
 ########################################################################
 install(FILES
     api.h
-    DESTINATION include/ysf2
+    DESTINATION include/gnuradio/ysf2
 )
