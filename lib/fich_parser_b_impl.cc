@@ -26,7 +26,8 @@ fich_parser_b_impl::fich_parser_b_impl()
 {
   d_port = pmt::mp("header_data");
   message_port_register_out(d_port);
-  set_output_multiple(32);
+  set_output_multiple(48);
+
 }
 
 /*
@@ -48,8 +49,28 @@ int fich_parser_b_impl::work(int noutput_items,
   unsigned int frame_total;
   unsigned int data_type;
   unsigned int squelch;
-
+  unsigned int crc;
+  unsigned int crc1;
+  unsigned int feedback;
   int i;
+
+  crc = 0;
+  for (i=0; i<32; i++)
+  {
+    feedback = in[i] ^ (crc >> 15);
+    crc = (crc << 1) & 0xffff;
+    if (feedback)
+      crc ^= 1 | (1 << 5) | (1 << 12);
+  }
+  crc1 = 0;
+  for (i=32; i<48; i++)
+  {
+    crc1 = (crc1 << 1) | in[i];
+  }
+  if ((crc ^ crc1) != 0xffff)
+  {
+    printf("CRC: %04x %04x %04x\n", crc, crc1, crc ^ crc1);
+  }
 
   frame_type = (in[0] << 1) | in[1];
   callsign_information = (in[2] << 1) | in[3];
