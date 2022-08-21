@@ -17,12 +17,17 @@ async_fich_parser::sptr async_fich_parser::make() {
 
 void async_fich_parser_impl::crc_ok(pmt::pmt_t msg)
 {
-  printf("crc ok\n");
+  pmt::pmt_t dict;
+
+  dict = pmt::make_dict();
+  dict = pmt::dict_add(dict, pmt::intern("payload_len"),
+    pmt::from_long(360));
+  message_port_pub(d_port_out, dict);
 }
 
 void async_fich_parser_impl::crc_notok(pmt::pmt_t msg)
 {
-  printf("crc notok\n");
+  message_port_pub(d_port_out, pmt::PMT_F);
 }
 
 /*
