@@ -17,12 +17,26 @@ async_fich_parser::sptr async_fich_parser::make() {
 
 void async_fich_parser_impl::crc_ok(pmt::pmt_t msg)
 {
+  std::vector<uint8_t> bytes = pmt::u8vector_elements(pmt::cdr(msg));
   pmt::pmt_t dict;
+  int frame_number;
 
-  dict = pmt::make_dict();
-  dict = pmt::dict_add(dict, pmt::intern("payload_len"),
-    pmt::from_long(360));
-  message_port_pub(d_port_out, dict);
+  if (bytes.size() < 4)
+  {
+    message_port_pub(d_port_out, pmt::PMT_F);
+  }
+  else
+  {
+    frame_number = (bytes[1] >> 3) & 0x7;
+    printf("frame number = %d\n", frame_number);
+
+    dict = pmt::make_dict();
+    dict = pmt::dict_add(dict, pmt::intern("payload_len"),
+      pmt::from_long(360));
+    dict = pmt::dict_add(dict, pmt::intern("frame_number"),
+      pmt::from_long(frame_number));
+    message_port_pub(d_port_out, dict);
+  }
 }
 
 void async_fich_parser_impl::crc_notok(pmt::pmt_t msg)
