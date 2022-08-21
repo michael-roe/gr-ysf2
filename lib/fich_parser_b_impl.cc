@@ -40,6 +40,7 @@ int fich_parser_b_impl::work(int noutput_items,
                              gr_vector_void_star &output_items) {
   unsigned char *in = (unsigned char *) input_items[0];
   pmt::pmt_t dict;
+  std::vector<tag_t> tags;
   unsigned int frame_type;
   unsigned int callsign_information;
   unsigned int call_mode;
@@ -72,6 +73,8 @@ int fich_parser_b_impl::work(int noutput_items,
     printf("CRC: %04x %04x %04x\n", crc, crc1, crc ^ crc1);
   }
 
+  get_tags_in_range(tags, 0, nitems_read(0), nitems_read(0)+48);
+
   frame_type = (in[0] << 1) | in[1];
   callsign_information = (in[2] << 1) | in[3];
   call_mode = (in[4] << 1) | in[5];
@@ -91,6 +94,33 @@ int fich_parser_b_impl::work(int noutput_items,
     pmt::from_long(frame_type));
   dict = pmt::dict_add(dict, pmt::intern("frame_number"),
     pmt::from_long(frame_number));
+  dict = pmt::dict_add(dict, pmt::intern("frame_total"),
+    pmt::from_long(frame_total));
+  dict = pmt::dict_add(dict, pmt::intern("data_type"),
+    pmt::from_long(data_type));
+
+  if (block_total != 0)
+  {
+    dict = pmt::dict_add(dict, pmt::intern("block_total"),
+      pmt::from_long(block_total));
+    dict = pmt::dict_add(dict, pmt::intern("block_number"),
+      pmt::from_long(block_number));
+  }
+
+  if (squelch != 0)
+  {
+    dict = pmt::dict_add(dict, pmt::intern("squelch"),
+      pmt::from_long(squelch));
+  }
+
+  for (i=0; i<tags.size(); i++)
+  {
+    if (pmt::equal(tags[i].key, pmt::intern("rx_time")))
+    {
+      dict = pmt::dict_add(dict, tags[i].key,
+        tags[i].value);
+    }
+  }
 
   message_port_pub(d_port, dict);
 
