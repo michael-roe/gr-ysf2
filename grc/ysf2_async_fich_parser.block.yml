@@ -1,0 +1,15 @@
+id: ysf2_async_fich_parser
+label: async FICH parser
+category: '[YSF2]'
+inputs:
+- domain: message
+  id: ok
+- domain: message
+  id: notok
+outputs:
+- domain: message
+  id: out
+templates:
+  imports: from gnuradio import ysf2
+  make: ysf2.async_fich_parser()
+file_format: 1

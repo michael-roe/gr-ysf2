@@ -29,7 +29,8 @@ include(GrPybind)
 ########################################################################
 
 list(APPEND ysf2_python_files
-    fich_parser_b_python.cc python_bindings.cc)
+    fich_parser_b_python.cc
+    async_fich_parser_python.cc python_bindings.cc)
 
 GR_PYBIND_MAKE_OOT(ysf2
    ../../..

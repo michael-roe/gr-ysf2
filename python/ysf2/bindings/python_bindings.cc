@@ -22,6 +22,7 @@ namespace py = pybind11;
 /**************************************/
 // BINDING_FUNCTION_PROTOTYPES(
     void bind_fich_parser_b(py::module& m);
+    void bind_async_fich_parser(py::module& m);
 // ) END BINDING_FUNCTION_PROTOTYPES
 
 
@@ -51,5 +52,6 @@ PYBIND11_MODULE(ysf2_python, m)
     /**************************************/
     // BINDING_FUNCTION_CALLS(
     bind_fich_parser_b(m);
+    bind_async_fich_parser(m);
     // ) END BINDING_FUNCTION_CALLS
 }

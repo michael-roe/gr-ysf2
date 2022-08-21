@@ -40,3 +40,4 @@ add_custom_target(
           ${PROJECT_BINARY_DIR}/test_modules/gnuradio/ysf2/
 )
 GR_ADD_TEST(qa_fich_parser_b ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_fich_parser_b.py)
+GR_ADD_TEST(qa_async_fich_parser ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_async_fich_parser.py)
