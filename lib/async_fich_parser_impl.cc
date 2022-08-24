@@ -28,7 +28,6 @@ void async_fich_parser_impl::crc_ok(pmt::pmt_t msg)
   else
   {
     frame_number = (bytes[1] >> 3) & 0x7;
-    printf("frame number = %d\n", frame_number);
 
     dict = pmt::make_dict();
     dict = pmt::dict_add(dict, pmt::intern("payload_len"),
