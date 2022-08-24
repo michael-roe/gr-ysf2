@@ -8,5 +8,6 @@
 
 install(FILES
     ysf2_fich_parser_b.block.yml
-    ysf2_async_fich_parser.block.yml DESTINATION share/gnuradio/grc/blocks
+    ysf2_async_fich_parser.block.yml
+    ysf2_async_dch_parser.block.yml DESTINATION share/gnuradio/grc/blocks
 )

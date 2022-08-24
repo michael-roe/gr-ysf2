@@ -1,0 +1,13 @@
+id: ysf2_async_dch_parser
+label: Async DCH Parser
+category: '[YSF2]'
+inputs:
+- domain: message
+  id: in
+outputs:
+- domain: message
+  id: callsign
+templates:
+  imports: from gnuradio import ysf2
+  make: ysf2.async_dch_parser()
+file_format: 1

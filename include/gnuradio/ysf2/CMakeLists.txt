@@ -12,5 +12,6 @@
 install(FILES
     api.h
     fich_parser_b.h
-    async_fich_parser.h DESTINATION include/gnuradio/ysf2
+    async_fich_parser.h
+    async_dch_parser.h DESTINATION include/gnuradio/ysf2
 )
