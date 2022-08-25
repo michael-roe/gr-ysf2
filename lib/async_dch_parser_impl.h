@@ -17,6 +17,7 @@ class async_dch_parser_impl : public async_dch_parser {
 private:
   pmt::pmt_t d_port_in;
   pmt::pmt_t d_port_callsign;
+  pmt::pmt_t d_port_location;
 
   void message(pmt::pmt_t msg);
 

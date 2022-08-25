@@ -7,6 +7,8 @@ inputs:
 outputs:
 - domain: message
   id: callsign
+- domain: message
+  id: location
 templates:
   imports: from gnuradio import ysf2
   make: ysf2.async_dch_parser()

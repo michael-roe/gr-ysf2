@@ -61,6 +61,15 @@ void async_dch_parser_impl::message(pmt::pmt_t msg)
       message_port_pub(d_port_callsign, pmt::cons(pmt::intern("callsign"),
         pmt::intern(buff)));
       break;
+    case 6:
+    case 7:
+      {
+      std::vector<uint8_t> vec(buff, buff + 10);
+      message_port_pub(d_port_location, pmt::cons(pmt::make_dict(),
+        pmt::init_u8vector(10, vec)));
+      }
+      /* printf("%s\n", buff); */
+      break;
     default:
       break;
   }
@@ -81,7 +90,8 @@ async_dch_parser_impl::async_dch_parser_impl()
     [this](pmt::pmt_t msg) { this->message(msg); });
   d_port_callsign = pmt::mp("callsign");
   message_port_register_out(d_port_callsign);
-
+  d_port_location = pmt::mp("location");
+  message_port_register_out(d_port_location);
 }
 
 /*
