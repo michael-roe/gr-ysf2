@@ -44,6 +44,9 @@ void async_fich_parser_impl::crc_ok(pmt::pmt_t msg)
     value = pmt::dict_ref(dict_in, d_rx_time_key, pmt::PMT_NIL);
     if (!pmt::is_null(value))
       dict = pmt::dict_add(dict, d_rx_time_key, value);
+    value = pmt::dict_ref(dict_in, d_distance_key, pmt::PMT_NIL);
+    if (!pmt::is_null(value))
+      dict = pmt::dict_add(dict, d_distance_key, value);
     message_port_pub(d_port_out, dict);
   }
 }
@@ -63,6 +66,7 @@ async_fich_parser_impl::async_fich_parser_impl()
           gr::io_signature::make(0, 0, 0))
 {
   d_rx_time_key = pmt::intern("rx_time");
+  d_distance_key = pmt::intern("distance");
   d_port_ok = pmt::mp("ok");
   d_port_notok = pmt::mp("notok");
   d_port_out = pmt::mp("out");

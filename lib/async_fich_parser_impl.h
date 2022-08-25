@@ -19,6 +19,7 @@ private:
   pmt::pmt_t d_port_notok;
   pmt::pmt_t d_port_out;
   pmt::pmt_t d_rx_time_key;
+  pmt::pmt_t d_distance_key;
 
   void crc_ok(pmt::pmt_t msg);
   void crc_notok(pmt::pmt_t msg);
