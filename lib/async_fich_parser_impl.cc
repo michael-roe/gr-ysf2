@@ -19,9 +19,16 @@ void async_fich_parser_impl::crc_ok(pmt::pmt_t msg)
 {
   std::vector<uint8_t> bytes = pmt::u8vector_elements(pmt::cdr(msg));
   pmt::pmt_t dict;
+  pmt::pmt_t dict_in;
+  pmt::pmt_t value;
   int frame_number;
 
-  if (bytes.size() < 4)
+  dict_in = pmt::car(msg);
+  if (!pmt::is_dict(dict_in))
+  {
+    message_port_pub(d_port_out, pmt::PMT_F);
+  }
+  else if (bytes.size() < 4)
   {
     message_port_pub(d_port_out, pmt::PMT_F);
   }
@@ -34,6 +41,9 @@ void async_fich_parser_impl::crc_ok(pmt::pmt_t msg)
       pmt::from_long(360));
     dict = pmt::dict_add(dict, pmt::intern("frame_number"),
       pmt::from_long(frame_number));
+    value = pmt::dict_ref(dict_in, d_rx_time_key, pmt::PMT_NIL);
+    if (!pmt::is_null(value))
+      dict = pmt::dict_add(dict, d_rx_time_key, value);
     message_port_pub(d_port_out, dict);
   }
 }
@@ -52,6 +62,7 @@ async_fich_parser_impl::async_fich_parser_impl()
           gr::io_signature::make(0, 0, 0),
           gr::io_signature::make(0, 0, 0))
 {
+  d_rx_time_key = pmt::intern("rx_time");
   d_port_ok = pmt::mp("ok");
   d_port_notok = pmt::mp("notok");
   d_port_out = pmt::mp("out");
