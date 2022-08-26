@@ -15,6 +15,7 @@ list(APPEND ysf2_sources
     fich_parser_b_impl.cc
     async_fich_parser_impl.cc
     async_dch_parser_impl.cc
+    fich_source_b_impl.cc
 )
 
 set(ysf2_sources "${ysf2_sources}" PARENT_SCOPE)
