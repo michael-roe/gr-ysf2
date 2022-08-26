@@ -46,6 +46,8 @@ int fich_source_b_impl::work(int noutput_items,
   int i;
   int j;
   int blocks;
+  unsigned int crc;
+  unsigned int feedback;
   unsigned char *out = (unsigned char *) output_items[0];
 
   blocks = noutput_items/48;
@@ -106,13 +108,22 @@ int fich_source_b_impl::work(int noutput_items,
     out[48*i + 30] = (d_squelch >> 1) & 0x1;
     out[48*i + 31] = d_squelch & 0x1;
 
-    for (j=32; j<48; j++)
+    crc = 0;
+    for (j=0; j<32; j++)
     {
-      out[48*i + j] = 0;
+      feedback = out[48*i + j] ^ (crc >> 15);
+      crc = (crc << 1) & 0xffff;
+      if (feedback)
+        crc ^= 1 | (1 << 5) | (1 << 12);
+    }
+    crc ^= 0xffff;
+    for (j=47; j>31; j--)
+    {
+      out[48*i + j] = crc & 0x1;
+      crc = crc >> 1;
     }
 
     d_frame_number = (d_frame_number + 1) & 0x7;
-    printf("frame_number = %d\n", d_frame_number);
   }
 
   // Tell runtime system how many output items we produced.
