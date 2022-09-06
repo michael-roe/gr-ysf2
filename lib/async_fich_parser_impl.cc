@@ -21,6 +21,7 @@ void async_fich_parser_impl::crc_ok(pmt::pmt_t msg)
   pmt::pmt_t dict;
   pmt::pmt_t dict_in;
   pmt::pmt_t value;
+  int frame_type;
   int frame_number;
 
   dict_in = pmt::car(msg);
@@ -34,11 +35,14 @@ void async_fich_parser_impl::crc_ok(pmt::pmt_t msg)
   }
   else
   {
+    frame_type = (bytes[0] >> 6) & 0x3;
     frame_number = (bytes[1] >> 3) & 0x7;
 
     dict = pmt::make_dict();
     dict = pmt::dict_add(dict, pmt::intern("payload_len"),
       pmt::from_long(360));
+    dict = pmt::dict_add(dict, pmt::intern("frame_type"),
+      pmt::from_long(frame_type));
     dict = pmt::dict_add(dict, pmt::intern("frame_number"),
       pmt::from_long(frame_number));
     value = pmt::dict_ref(dict_in, d_rx_time_key, pmt::PMT_NIL);
