@@ -1,5 +1,5 @@
 id: ysf2_async_fich_parser
-label: async FICH parser
+label: Async FICH parser
 category: '[YSF2]'
 inputs:
 - domain: message
